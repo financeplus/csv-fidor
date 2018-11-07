@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@pushrocks/smartcsv": "^1.0.15",
+    "@pushrocks/smartfile": "^6.0.8",
     "@pushrocks/smarttime": "^3.0.2"
   }
 }

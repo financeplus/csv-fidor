@@ -23,8 +23,8 @@ export class CsvFidor {
   /**
    * creates a parsed transaction object from dierctory
    */
-  static fromDirectory(dirPath) {
-
+  static async fromDirectory(dirPath: string) {
+    const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPath, '**/*.csv');
   }
 
   constructor(csvStringArg: string) {
