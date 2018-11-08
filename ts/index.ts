@@ -25,13 +25,22 @@ export class CsvFidor {
    */
   static async fromDirectory(dirPath: string) {
     const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPath, '**/*.csv');
+    console.log(smartfileArray);
+
+    for (const smartfile of smartfileArray) {
+      const csvFidor = new CsvFidor(smartfile.contentBuffer.toString());
+      csvFidor
+    }
+
+    const csvFidor = new CsvFidor('');
+    return csvFidor;
   }
 
   constructor(csvStringArg: string) {
     const csvInstance = new plugins.smartcsv.Csv(csvStringArg, {
       headers: true
     });
-
+    csvInstance
     
   }
 }
