@@ -13,34 +13,53 @@ export class CsvFidor {
   /**
    * creates a parsed transaction object from string
    */
-  static fromString() {}
+  public static async fromString(csvStringArg: string) {
+    const csvFidorInstance = new CsvFidor(csvStringArg);
+    await csvFidorInstance.parse();
+    return csvFidorInstance;
+  }
 
   /**
    * creates a parsed transaction object from file
    */
-  static fromFile() {}
+  public static fromFile() {}
 
   /**
    * creates a parsed transaction object from dierctory
    */
-  static async fromDirectory(dirPath: string) {
+  public static async fromDirectory(dirPath: string) {
     const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPath, '**/*.csv');
     console.log(smartfileArray);
 
+    const mainCsvFidorInstance = new CsvFidor('');
+
     for (const smartfile of smartfileArray) {
-      const csvFidor = new CsvFidor(smartfile.contentBuffer.toString());
-      csvFidor
+      const csvFidorInstance = await CsvFidor.fromString(smartfile.contentBuffer.toString());
+      await mainCsvFidorInstance.concat([csvFidorInstance]);
     }
 
-    const csvFidor = new CsvFidor('');
-    return csvFidor;
+    
+    return mainCsvFidorInstance;
   }
 
+  private csvString: string;
+  private csvInstance: plugins.smartcsv.Csv;
+
   constructor(csvStringArg: string) {
-    const csvInstance = new plugins.smartcsv.Csv(csvStringArg, {
+    this.csvString = csvStringArg;
+    this.csvInstance = new plugins.smartcsv.Csv(csvStringArg, {
       headers: true
     });
-    csvInstance
-    
+  }
+
+  /**
+   * parse the csv
+   */
+  async parse() {
+
+  };
+
+  async concat(csvFidorArrayArg: CsvFidor[]) {
+
   }
 }
