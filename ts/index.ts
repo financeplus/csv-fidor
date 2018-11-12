@@ -16,6 +16,7 @@ export class CsvFidor {
   public static async fromString(csvStringArg: string) {
     const csvFidorInstance = new CsvFidor(csvStringArg);
     await csvFidorInstance.parse();
+    // console.log(csvFidorInstance);
     return csvFidorInstance;
   }
 
@@ -29,7 +30,6 @@ export class CsvFidor {
    */
   public static async fromDirectory(dirPath: string) {
     const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPath, '**/*.csv');
-    console.log(smartfileArray);
 
     const mainCsvFidorInstance = new CsvFidor('');
 
@@ -38,12 +38,13 @@ export class CsvFidor {
       await mainCsvFidorInstance.concat([csvFidorInstance]);
     }
 
-    
     return mainCsvFidorInstance;
   }
 
   private csvString: string;
   private csvInstance: plugins.smartcsv.Csv;
+
+  public transactions: IFidorTransaction[] = [];
 
   constructor(csvStringArg: string) {
     this.csvString = csvStringArg;
@@ -56,10 +57,19 @@ export class CsvFidor {
    * parse the csv
    */
   async parse() {
+    const transactions: any[] = await this.csvInstance.exportAsObject();
+    for (const transaction of transactions) {
+      transaction.Datum = plugins.smarttime.ExtendedDate.fromEuropeanDate(transaction.Datum);
+      transaction.Wert = parseFloat(transaction.Wert.replace('.','').replace(',','.'));
+    }
+    this.transactions = transactions;
+  }
 
-  };
-
-  async concat(csvFidorArrayArg: CsvFidor[]) {
-
+  public async concat(csvFidorArrayArg: CsvFidor[]) {
+    for(const csvFidor of csvFidorArrayArg) {
+      for (const transaction of csvFidor.transactions) {
+        this.transactions.push(transaction);
+      }
+    }
   }
 }
