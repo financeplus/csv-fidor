@@ -60,13 +60,13 @@ export class CsvFidor {
     const transactions: any[] = await this.csvInstance.exportAsObject();
     for (const transaction of transactions) {
       transaction.Datum = plugins.smarttime.ExtendedDate.fromEuropeanDate(transaction.Datum);
-      transaction.Wert = parseFloat(transaction.Wert.replace('.','').replace(',','.'));
+      transaction.Wert = parseFloat(transaction.Wert.replace('.', '').replace(',', '.'));
     }
     this.transactions = transactions;
   }
 
   public async concat(csvFidorArrayArg: CsvFidor[]) {
-    for(const csvFidor of csvFidorArrayArg) {
+    for (const csvFidor of csvFidorArrayArg) {
       for (const transaction of csvFidor.transactions) {
         this.transactions.push(transaction);
       }
