@@ -2,5 +2,15 @@
   "npmci": {
     "npmGlobalTools": [],
     "npmAccessLevel": "public"
+  },
+  "gitzone": {
+    "module": {
+      "githost": "gitlab.com",
+      "gitscope": "financeplus",
+      "gitrepo": "csv-fidor",
+      "shortDescription": "a csv parser for csv files from fidor.de",
+      "npmPackagename": "@financeplus/csv-fidor",
+      "license": "MIT"
+    }
   }
 }
