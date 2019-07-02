@@ -4,9 +4,11 @@ import * as csvFidor from '../ts/index';
 let testCsvFidorInstance: csvFidor.CsvFidor;
 
 tap.test('first test', async () => {
-  testCsvFidorInstance = await csvFidor.CsvFidor.fromDirectory('./.nogit/');
-  expect(testCsvFidorInstance).to.be.instanceof(csvFidor.CsvFidor);
-  console.log(testCsvFidorInstance.transactions);
+  if (!process.env.CI) {
+    testCsvFidorInstance = await csvFidor.CsvFidor.fromDir('./.nogit/');
+    expect(testCsvFidorInstance).to.be.instanceof(csvFidor.CsvFidor);
+    console.log(testCsvFidorInstance.transactionArray);
+  }
 });
 
 tap.start();
