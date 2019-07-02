@@ -1,6 +1,6 @@
 {
   "name": "@financeplus/csv-fidor",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "private": false,
   "description": "a csv parser for csv files from fidor.de",
   "main": "dist/index.js",
