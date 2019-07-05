@@ -10,6 +10,7 @@ export interface IFidorOriginalTransaction {
 export interface IFidorTransaction {
   original: IFidorOriginalTransaction;
   simpleTransaction: plugins.tsclass.ITransaction;
+  transactionHash: string;
   transactionDate: plugins.smarttime.ExtendedDate;
   description: string;
   description2: string;

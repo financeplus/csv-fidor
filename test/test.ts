@@ -1,3 +1,4 @@
+// tslint:disable-next-line: no-implicit-dependencies
 import { expect, tap } from '@pushrocks/tapbundle';
 import * as csvFidor from '../ts/index';
 
