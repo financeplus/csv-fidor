@@ -9,6 +9,4 @@ export { smartcsv, smartfile, smarttime, smarthash };
 // tsclass scope
 import * as tsclass from '@tsclass/tsclass';
 
-export {
-  tsclass
-};
+export { tsclass };

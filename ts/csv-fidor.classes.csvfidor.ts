@@ -14,7 +14,7 @@ export class CsvFidor {
       headers: true
     });
 
-    const originalTransactionArray: interfaces.IFidorOriginalTransaction[] = (await csvInstance.exportAsObject());
+    const originalTransactionArray: interfaces.IFidorOriginalTransaction[] = await csvInstance.exportAsObject();
     const transactionArray: interfaces.IFidorTransaction[] = [];
     for (const transaction of originalTransactionArray) {
       const finalTransaction: interfaces.IFidorTransaction = {
@@ -41,11 +41,10 @@ export class CsvFidor {
         accountId: null,
         amount: finalTransaction.amount,
         date: finalTransaction.transactionDate,
-        description: finalTransaction.description,
+        description: finalTransaction.description
       };
       transactionArray.push(finalTransaction);
     }
-    
 
     const csvFidorInstance = new CsvFidor(transactionArray);
     return csvFidorInstance;
@@ -78,12 +77,11 @@ export class CsvFidor {
   /**
    * from Api
    */
-  public static async fromApi (): Promise<CsvFidor> {
+  public static async fromApi(): Promise<CsvFidor> {
     // TODO implement
     throw new Error('not yet implemented');
     return new CsvFidor([]);
   }
-
 
   // INSTANCE
   public transactionArray: interfaces.IFidorTransaction[];
