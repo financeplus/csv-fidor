@@ -5,10 +5,11 @@ import { ExtendedDate } from '@pushrocks/smarttime';
 import * as interfaces from './interfaces';
 
 export class CsvFidor {
+  // STATIC
   /**
    * creates a parsed transaction object from string
    */
-  public static async fromString(csvStringArg: string) {
+  public static async fromString(csvStringArg: string): Promise<CsvFidor> {
     const csvInstance = new plugins.smartcsv.Csv(csvStringArg, {
       headers: true
     });
@@ -53,14 +54,15 @@ export class CsvFidor {
   /**
    * creates a parsed transaction object from file
    */
-  public static fromFile() {
-
+  public static async fromFile(filePathArg: string): Promise<CsvFidor> {
+    const fileString = plugins.smartfile.fs.toStringSync(filePathArg);
+    return CsvFidor.fromString(fileString);
   }
 
   /**
    * creates a parsed transaction object from dierctory
    */
-  public static async fromDir(dirPath: string) {
+  public static async fromDir(dirPath: string): Promise<CsvFidor> {
     const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPath, '**/fidor*.csv');
 
     const mainCsvFidorInstance = new CsvFidor([]);
@@ -73,6 +75,17 @@ export class CsvFidor {
     return mainCsvFidorInstance;
   }
 
+  /**
+   * from Api
+   */
+  public static async fromApi (): Promise<CsvFidor> {
+    // TODO implement
+    throw new Error('not yet implemented');
+    return new CsvFidor([]);
+  }
+
+
+  // INSTANCE
   public transactionArray: interfaces.IFidorTransaction[];
 
   constructor(transactionArrayArg: interfaces.IFidorTransaction[]) {
