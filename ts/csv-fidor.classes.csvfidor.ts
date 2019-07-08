@@ -41,7 +41,8 @@ export class CsvFidor extends plugins.finplusInterfaces.AcCsvParser<interfaces.I
         accountId: null,
         amount: finalTransaction.amount,
         date: finalTransaction.transactionDate,
-        description: finalTransaction.description
+        description: finalTransaction.description,
+        name: finalTransaction.description2
       };
       transactionArray.push(finalTransaction);
     }
