@@ -1,3 +1,8 @@
+// financeplus scope
+import * as finplusInterfaces from '@financeplus/finplus-interfaces';
+
+export { finplusInterfaces };
+
 // @pushrocks scope
 import * as smartcsv from '@pushrocks/smartcsv';
 import * as smartfile from '@pushrocks/smartfile';

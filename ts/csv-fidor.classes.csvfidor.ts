@@ -4,7 +4,7 @@ import { ExtendedDate } from '@pushrocks/smarttime';
 
 import * as interfaces from './interfaces';
 
-export class CsvFidor {
+export class CsvFidor extends plugins.finplusInterfaces.AcCsvParser<interfaces.IFidorTransaction> {
   // STATIC
   /**
    * creates a parsed transaction object from string
@@ -84,9 +84,11 @@ export class CsvFidor {
   }
 
   // INSTANCE
+  public paymentProviderName: string = 'Fidor';
   public transactionArray: interfaces.IFidorTransaction[];
 
   constructor(transactionArrayArg: interfaces.IFidorTransaction[]) {
+    super();
     this.transactionArray = transactionArrayArg;
   }
 
